@@ -1,8 +1,7 @@
-DROP SCHEMA IF EXISTS employee_db;
-CREATE SCHEMA IF NOT EXISTS employee_db;
-USE employee_db;
+DROP TABLE IF EXISTS employee;
+
 CREATE TABLE employee (
-    employee_Id   SERIAL PRIMARY KEY AUTO_INCREMENT,
+    employee_id   SERIAL PRIMARY KEY,
     first_name    VARCHAR(255) NOT NULL,
     last_name     VARCHAR(255) NOT NULL,
     department_id INT NOT NULL,

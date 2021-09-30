@@ -3,17 +3,16 @@ package com.mastery.java.task.service;
 import com.mastery.java.task.dto.Employee;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface EmployeeService {
 
-    List<Employee> findAll();
+    List<Employee> findAllEmployees();
 
     Employee addEmployee(Employee employee);
 
-    void deleteEmployee(long id);
+    void deleteEmployee(Long id);
 
-    Employee updateInfoAboutEmployee(Employee employee);
+    Employee updateEmployee(Long id, Employee employee);
 
-    Optional<Employee> findById(long id);
+    Employee findEmployeeById(Long id);
 }

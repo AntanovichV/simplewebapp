@@ -2,55 +2,55 @@ package com.mastery.java.task.service;
 
 import com.mastery.java.task.dao.EmployeeDao;
 import com.mastery.java.task.dto.Employee;
+import com.mastery.java.task.exceptons.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    public EmployeeDao employeeDao;
-
     @Autowired
-    public EmployeeServiceImpl(EmployeeDao employeeDao) {
-        this.employeeDao = employeeDao;
-    }
+    EmployeeDao employeeDao;
 
     @Override
-    public List<Employee> findAll() {
+    public List<Employee> findAllEmployees() {
         return employeeDao.findAll();
     }
 
     @Override
     public Employee addEmployee(Employee employee) {
-        return employeeDao.addEmployee(employee);
+        return employeeDao.save(employee);
+    }
+
+    static final String MESSAGE = "Employee with id \"%s\" not found.";
+
+    @Override
+    public void deleteEmployee(Long id) {
+        Employee employee = employeeDao.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(MESSAGE, id)));
+        employeeDao.delete(employee);
     }
 
     @Override
-    public void deleteEmployee(long id) {
-        employeeDao.deleteEmployee(id);
-    }
-
-    @Override
-    public Employee updateInfoAboutEmployee(Employee employee) {
-        Employee existingEmployee = employeeDao.findById(employee.getEmployeeId()).get();
+    public Employee updateEmployee(Long id, Employee employee) {
+        Employee existingEmployee = employeeDao.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(MESSAGE, id)));
         existingEmployee.setFirstName(employee.getFirstName());
         existingEmployee.setLastName(employee.getLastName());
         existingEmployee.setDepartmentId(employee.getDepartmentId());
         existingEmployee.setJobTitle(employee.getJobTitle());
         existingEmployee.setGender(employee.getGender());
         existingEmployee.setDateOfBirth(employee.getDateOfBirth());
-        employeeDao.updateEmployee(existingEmployee);
-        return existingEmployee;
+        return employeeDao.save(existingEmployee);
     }
 
     @Override
-    public Optional<Employee> findById(long id) {
-        if (employeeDao.findById(id).isPresent()) {
-            return Optional.of(employeeDao.findById(id).get());
-        }
-        return Optional.empty();
+    public Employee findEmployeeById(Long id) {
+        return employeeDao.findById(id).orElseThrow(() -> new NotFoundException(String.format(MESSAGE, id)));
     }
 }
