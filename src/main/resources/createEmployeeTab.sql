@@ -2,11 +2,11 @@ DROP TABLE IF EXISTS employee;
 
 CREATE TABLE employee (
     employee_id   SERIAL PRIMARY KEY,
-    first_name    VARCHAR(255) NOT NULL,
-    last_name     VARCHAR(255) NOT NULL,
+    first_name    VARCHAR(100) NOT NULL,
+    last_name     VARCHAR(100) NOT NULL,
     department_id INT NOT NULL,
-    job_title     VARCHAR(255) NOT NULL,
-    gender        VARCHAR(16) NOT NULL,
+    job_title     VARCHAR(150) NOT NULL,
+    gender        VARCHAR(100) NOT NULL,
     date_of_birth DATE  NOT NULL
 );
 

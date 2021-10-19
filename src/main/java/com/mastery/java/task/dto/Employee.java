@@ -1,41 +1,38 @@
 package com.mastery.java.task.dto;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "employee")
+@Table
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employeeId;
+    @Column
+    private int employeeId;
+    @Column
     private String firstName;
+    @Column
     private String lastName;
-    private Long departmentId;
+    @Column
+    private int departmentId;
+    @Column
     private String jobTitle;
     @Enumerated(EnumType.STRING)
+    @Column
     private Gender gender;
-    private Date dateOfBirth;
+    @Column
+    private LocalDate dateOfBirth;
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, Long departmentId, String jobTitle, Gender gender,
-            Date dateOfBirth) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.departmentId = departmentId;
-        this.jobTitle = jobTitle;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setEmployeeId(Long employeeId) {
+    public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
 
-    public Long getEmployeeId() {
+    public int getEmployeeId() {
         return employeeId;
     }
 
@@ -55,11 +52,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Long getDepartmentId() {
+    public int getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Long departmentId) {
+    public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -79,11 +76,25 @@ public class Employee {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", departmentId=" + departmentId +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", gender=" + gender +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
     }
 }
